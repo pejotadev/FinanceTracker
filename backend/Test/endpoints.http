@@ -1,0 +1,50 @@
+POST http://localhost:8000/api/user/createUser HTTP/1.1
+content-type: application/json
+
+{
+	"name": "joe",
+	"email": "joe@doe.com",
+	"password": "123456"
+}
+
+###
+
+POST http://localhost:8000/api/user/login HTTP/1.1
+Content-Type: application/json
+
+{
+	"email": "joe@doe.com",
+	"password": "123456"
+}
+
+###
+POST http://localhost:8000/api/wallet/create HTTP/1.1
+Content-Type: application/json
+
+{
+	"user_id": 1,
+	"name": "Gastos"
+}
+###
+POST http://localhost:8000/api/tags/ HTTP/1.1
+Content-Type: application/json
+
+{
+	"name": "Salario",
+	"user_id": 1,
+	"color": "green"
+}
+###
+POST http://localhost:8000/api/wallet/1/transaction HTTP/1.1
+Content-Type: application/json
+
+{
+	"amount": 7000,
+	"date": "2023-10-22T21:51:47.977Z",
+	"description": "BPTech",
+	"type": "income",
+	"tag_id": 2
+}
+
+###
+GET http://localhost:8000/api/wallet/1 HTTP/1.1
