@@ -22,14 +22,17 @@ exports.getWallets = async function(req, res, next) {
 
 exports.getWallet = async function(req, res, next) {
   try {
-    const wallet = await Wallet.findByPk(req.params.id, {
+    let wallet = await Wallet.findByPk(req.params.id, {
       include: [
         {
-          model: Transactions,
-          include: [{ model: Tags}]
+          model: Transactions
         }
       ]
     });
+
+    for (let index = 0; index < wallet.transactions.length; index++) {
+      wallet.transactions[index].dataValues.tag = await Tags.findByPk(wallet.transactions[index].dataValues.tag_id);  
+    }
     
     res.status(200).json(wallet);
   } catch (error) {
